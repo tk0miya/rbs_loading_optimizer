@@ -51,6 +51,7 @@ module RBS
     def resolve_type_names(only: nil)
       original_resolve_type_names(only:).tap do |resolved_env|
         # NOTE: Write the environment to the cache file
+        resolve_env.modified_time = modified_time
         write_cache("system.rbs", resolved_env)
       end
     end
