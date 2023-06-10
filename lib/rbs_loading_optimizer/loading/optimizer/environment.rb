@@ -49,10 +49,10 @@ module RBS
     alias original_resolve_type_names resolve_type_names
 
     def resolve_type_names(only: nil)
-      original_resolve_type_names(only:)
-
-      # NOTE: Write the environment to the cache file
-      write_cache("system.rbs", self)
+      original_resolve_type_names(only:).tap do |resolved_env|
+        # NOTE: Write the environment to the cache file
+        write_cache("system.rbs", resolved_env)
+      end
     end
 
     alias original_resolve_declaration resolve_declaration
